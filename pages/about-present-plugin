@@ -1,0 +1,37 @@
+{
+  "title": "About Present Plugin",
+  "story": [
+  {
+    "type": "paragraph",
+    "id": "7afef99309ece227",
+    "text": "Here we describe the purpose of the plugin and include a sample."
+  },
+  {
+    "type": "present",
+    "id": "81ae7b4bc20ecceb",
+    "text": "This is text in the new plugin. You can *double-click* to edit it too."
+  }
+],
+  "journal": [
+  {
+    "type": "create",
+    "item": {
+      "title": "About Present Plugin",
+      "story": [
+  {
+    "type": "paragraph",
+    "id": "7afef99309ece227",
+    "text": "Here we describe the purpose of the plugin and include a sample."
+  },
+  {
+    "type": "present",
+    "id": "81ae7b4bc20ecceb",
+    "text": "This is text in the new plugin. You can *double-click* to edit it too."
+  }
+]
+    },
+    "date": 1539541471000,
+    "certificate": "from mkplugin.sh"
+  }
+]
+}
