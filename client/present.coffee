@@ -23,14 +23,14 @@ emit = ($item, item) ->
   setInterval tick, 60000
 
   render = (data) ->
-   console.log data
-
-   user = (site) ->
-    name = site.split('.')[0]
-    "<img width=16 src=//#{site}/favicon.png> #{name}"
-
-   rows = ("<tr><td>#{user row.site}<td>#{row.pages} pages" for row in data.roll)
-   $item.find('table').empty().html(rows.join("\n"))
+    console.log data
+    rows = []
+    for row in data.roll
+      if row.pages > 0
+        name = row.site.split('.')[0]
+        link = """<img class=remote title=#{row.site} src=//#{row.site}/favicon.png data-site=#{row.site} data-slug=welcome-visitors> #{name}"""
+        rows.push "<tr><td>#{link}<td>#{row.pages} pages"
+    $item.find('table').empty().html(rows.join("\n"))
 
   trouble = (xhr) -> 
     $item.find('p').html xhr.responseJSON?.error || 'server error'
