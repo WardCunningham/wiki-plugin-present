@@ -9,9 +9,9 @@
     "plugin"
   ],
   "author": {
-    "name": "Your Name",
-    "email": "you@example.com",
-    "url": "http://example.com"
+    "name": "Ward Cunningham",
+    "email": "ward@c2.com",
+    "url": "http://c2.com/ward"
   },
   "contributors": [],
   "scripts": {
@@ -29,12 +29,15 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fedwiki/wiki-plugin-present.git"
+    "url": "https://github.com/wardcunningham/wiki-plugin-present.git"
   },
   "bugs": {
-    "url": "https://github.com/fedwiki/wiki-plugin-present/issues"
+    "url": "https://github.com/wardcunningham/wiki-plugin-present/issues"
   },
   "engines": {
     "node": ">=0.10"
+  },
+  "dependencies": {
+    "glob": "^7.1.3"
   }
 }
