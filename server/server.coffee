@@ -24,8 +24,7 @@ startServer = (params) ->
     glob "#{peers argv.status}/sitemap.json", {}, (err, files) ->
       return res.error(err) if err
       roll = for file in files
-        sufix = if argv.port == 80 then '' else ":#{argv.port}"
-        site = file.split('/').reverse()[2] + sufix
+        site = file.split('/').reverse()[2]
         path = file.replace /status\/sitemap\.json/, 'pages'
         pages = fs.readdirSync(path).length
         {site, pages}
