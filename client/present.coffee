@@ -28,7 +28,7 @@ emit = ($item, item) ->
   render = (data) ->
     console.log data
     rows = []
-    sufix = if location.port == 80 then '' else ":#{location.port}"
+    sufix = if location.port in [80, '80', '', null] then '' else ":#{location.port}"
     for row in data.roll
       if row.pages > 0
         name = row.site.split('.')[0]
