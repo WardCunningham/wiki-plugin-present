@@ -33,6 +33,7 @@ emit = ($item, item) ->
         name = row.site.split('.')[0]
         link = """<img class=remote title=#{row.site} src=//#{row.site}/favicon.png data-site=#{row.site} data-slug=welcome-visitors> #{name}"""
         rows.push "<tr><td>#{link}<td>#{row.pages} pages"
+        wiki.neighborhoodObject.registerNeighbor row.site
     $item.find('table').html(rows.join("\n"))
     $item.find('.caption').text "just updated"
     clearInterval $item.ticker
