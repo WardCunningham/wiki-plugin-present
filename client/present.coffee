@@ -11,16 +11,19 @@ emit = ($item, item) ->
     <div style="background-color:#eee;padding:15px;">
       <center>
         #{expand item.text}
-        <p class=caption>just updated</p>
+        <p class=caption>updating</p>
       <table width=70%></table>
     </div>
   """
 
-  start = Date.now()
   tick = ->
-    elapsed = Math.floor (Date.now()-start)/60000
-    $item.find('.caption').text "updated #{elapsed} minutes ago"
-  setInterval tick, 60000
+    elapsed = Math.floor (Date.now()-$item.start)/1000
+    two = 1.9
+    text = "updated a minute ago"
+    text = "updated #{Math.round elapsed/60} minutes ago" if elapsed > two*60
+    text = "updated #{Math.round elapsed/(60*60)} hours ago" if elapsed > two*60*60
+    text = "updated #{Math.round elapsed/(24*60*60)} days ago" if elapsed > two*24*60*60
+    $item.find('.caption').text text
 
   render = (data) ->
     console.log data
@@ -30,16 +33,24 @@ emit = ($item, item) ->
         name = row.site.split('.')[0]
         link = """<img class=remote title=#{row.site} src=//#{row.site}/favicon.png data-site=#{row.site} data-slug=welcome-visitors> #{name}"""
         rows.push "<tr><td>#{link}<td>#{row.pages} pages"
-    $item.find('table').empty().html(rows.join("\n"))
+    $item.find('table').html(rows.join("\n"))
+    $item.find('.caption').text "just updated"
+    clearInterval $item.ticker
+    $item.start = Date.now()
+    $item.ticker = setInterval tick, 60000
 
   trouble = (xhr) -> 
     $item.find('p').html xhr.responseJSON?.error || 'server error'
  
-  $.ajax
-    url: '/plugin/present/roll'
-    dataType: 'json'
-    success: render
-    error: trouble
+  update = ->
+    $.ajax
+      url: '/plugin/present/roll'
+      dataType: 'json'
+      success: render
+      error: trouble
+
+  update()
+  $item.find('.caption').click -> update()
 
 bind = ($item, item) ->
   $item.dblclick ->
