@@ -7,7 +7,7 @@ fs = require 'fs'
 peers = (status) ->
   pattern = status.split('/').reverse()
   path = pattern[1].split('.')
-  path[0] = '*'
+  path[0] = '+([^.])'
   pattern[1] = path.join('.')
   pattern.reverse().join('/')
 
