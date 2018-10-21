@@ -18,6 +18,8 @@ elapsed = (date) ->
 recent = (sitemap) ->
     return '' unless sitemap
     dates = (page.date for page in sitemap)
+    dates = dates.filter (date) -> date?
+    return '' unless dates.length > 0
     elapsed Math.max dates...
 
 emit = ($item, item) ->
