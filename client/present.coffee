@@ -26,7 +26,7 @@ emit = ($item, item) ->
       <center>
         #{expand item.text}
         <p class=caption>updating</p>
-      <table width=80%></table>
+      <table width=100%></table>
     </div>
   """
 
@@ -41,16 +41,16 @@ emit = ($item, item) ->
       sitemap = wiki.neighborhood["#{row.site}#{sufix}"]?.sitemap
       if row.pages > 0
         name = row.site.split('.')[0]
-        link = """<img
+        link = """
+          <img
           class=remote
           title=#{row.site}#{sufix}
           src=//#{row.site}#{sufix}/favicon.png
           data-site=#{row.site}#{sufix}
-          data-slug=welcome-visitors>
-            #{name}"""
+          data-slug=welcome-visitors>"""
         rows.push """
-          <tr><td>
-            #{link}
+          <tr><td align=right>
+            #{name} #{link}
           <td data-site=#{row.site}#{sufix}>
             #{row.pages} pages #{recent sitemap}"""
         wiki.neighborhoodObject.registerNeighbor row.site + sufix
