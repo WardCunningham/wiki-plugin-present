@@ -1,0 +1,135 @@
+{
+  "title": "Peer Activity",
+  "story": [
+    {
+      "type": "paragraph",
+      "id": "748f927ad80cfff8",
+      "text": "List sites hosted within the origin's domain showing page counts and most recent activity."
+    },
+    {
+      "type": "present",
+      "id": "015e80b318e6bc5f",
+      "text": " "
+    },
+    {
+      "type": "paragraph",
+      "id": "2e838ac7efa1544d",
+      "text": "Consult this page to expand the scope of search and [[Recent Changes]] to include all peers."
+    },
+    {
+      "type": "paragraph",
+      "id": "0841f18a5ea044b0",
+      "text": "Refresh your lineup without this page to restrict your neighborhood to only those sites mentioned in the lineup."
+    }
+  ],
+  "journal": [
+    {
+      "type": "create",
+      "item": {
+        "title": "Peer Activity",
+        "story": []
+      },
+      "date": 1573343846961
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "748f927ad80cfff8"
+      },
+      "id": "748f927ad80cfff8",
+      "type": "add",
+      "date": 1573343855387
+    },
+    {
+      "type": "edit",
+      "id": "748f927ad80cfff8",
+      "item": {
+        "type": "paragraph",
+        "id": "748f927ad80cfff8",
+        "text": "We locate peer sites hosted within the same domain as the origin. For each we report their page count and eventually the date of the most recent change as sitemaps are loaded."
+      },
+      "date": 1573343985755
+    },
+    {
+      "type": "edit",
+      "id": "748f927ad80cfff8",
+      "item": {
+        "type": "paragraph",
+        "id": "748f927ad80cfff8",
+        "text": "We locate peer sites hosted within the same domain as the origin. For each we report their page count and eventually the date of the most recent change as they enter our neighborhood."
+      },
+      "date": 1573344002603
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "015e80b318e6bc5f"
+      },
+      "id": "015e80b318e6bc5f",
+      "type": "add",
+      "after": "748f927ad80cfff8",
+      "date": 1573344007652
+    },
+    {
+      "type": "edit",
+      "id": "015e80b318e6bc5f",
+      "item": {
+        "type": "present",
+        "id": "015e80b318e6bc5f",
+        "text": " "
+      },
+      "date": 1573344012883
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "2e838ac7efa1544d"
+      },
+      "id": "2e838ac7efa1544d",
+      "type": "add",
+      "after": "015e80b318e6bc5f",
+      "date": 1573344074607
+    },
+    {
+      "type": "edit",
+      "id": "2e838ac7efa1544d",
+      "item": {
+        "type": "paragraph",
+        "id": "2e838ac7efa1544d",
+        "text": "Consult this page to expand the scope of search and recent changes to include all peers."
+      },
+      "date": 1573344164693
+    },
+    {
+      "type": "add",
+      "id": "0841f18a5ea044b0",
+      "item": {
+        "type": "paragraph",
+        "id": "0841f18a5ea044b0",
+        "text": "Refresh your lineup without this page to restrict your neighborhood to only those sites mentioned in the lineup."
+      },
+      "after": "2e838ac7efa1544d",
+      "date": 1573344250675
+    },
+    {
+      "type": "edit",
+      "id": "2e838ac7efa1544d",
+      "item": {
+        "type": "paragraph",
+        "id": "2e838ac7efa1544d",
+        "text": "Consult this page to expand the scope of search and [[Recent Changes]] to include all peers."
+      },
+      "date": 1573344284388
+    },
+    {
+      "type": "edit",
+      "id": "748f927ad80cfff8",
+      "item": {
+        "type": "paragraph",
+        "id": "748f927ad80cfff8",
+        "text": "List sites hosted within the origin's domain showing page counts and most recent activity."
+      },
+      "date": 1573344736827
+    }
+  ]
+}

@@ -1,5 +1,3 @@
 {
-  "name": "Present",
-  "title": "Present Plugin",
-  "category": "other"
+  "pages": ["Peer Activity"]
 }

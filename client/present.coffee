@@ -6,13 +6,16 @@ expand = (text)->
     .replace />/g, '&gt;'
     .replace /\*(.+?)\*/g, '<i>$1</i>'
 
-elapsed = (date) ->
-  interval = Math.floor (Date.now()-date)/1000
+elapsed = (msec) ->
+  interval = Math.floor msec/1000
   two = 1.9
   text = "a minute ago"
   text = "#{Math.round interval/60} minutes ago" if interval > two*60
   text = "#{Math.round interval/(60*60)} hours ago" if interval > two*60*60
   text = "#{Math.round interval/(24*60*60)} days ago" if interval > two*24*60*60
+  text = "#{Math.round interval/(24*60*60*7)} weeks ago" if interval > two*24*60*60*7
+  text = "#{Math.round interval/(24*60*60*30)} months ago" if interval > two*24*60*60*30
+  text = "#{Math.round interval/(24*60*60*365)} years ago" if interval > two*24*60*60*365
   text
 
 recent = (sitemap) ->
@@ -20,7 +23,7 @@ recent = (sitemap) ->
     dates = (page.date for page in sitemap)
     dates = dates.filter (date) -> date?
     return '' unless dates.length > 0
-    elapsed Math.max dates...
+    elapsed Date.now()-Math.max(dates...)
 
 emit = ($item, item) ->
   $item.append """
@@ -33,7 +36,7 @@ emit = ($item, item) ->
   """
 
   tick = ->
-    $item.find('.caption').text "updated #{elapsed $item.start}"
+    $item.find('.caption').text "updated #{elapsed Date.now()-$item.start}"
 
   render = (data) ->
     console.log data
@@ -87,5 +90,5 @@ bind = ($item, item) ->
     wiki.textEditor $item, item
 
 window.plugins.present = {emit, bind} if window?
-module.exports = {expand} if module?
+module.exports = {expand, elapsed} if module?
 

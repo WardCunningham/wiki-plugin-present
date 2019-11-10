@@ -1,37 +1,88 @@
 {
   "title": "About Present Plugin",
   "story": [
-  {
-    "type": "paragraph",
-    "id": "7afef99309ece227",
-    "text": "Here we describe the purpose of the plugin and include a sample."
-  },
-  {
-    "type": "present",
-    "id": "81ae7b4bc20ecceb",
-    "text": "This is text in the new plugin. You can *double-click* to edit it too."
-  }
-],
-  "journal": [
-  {
-    "type": "create",
-    "item": {
-      "title": "About Present Plugin",
-      "story": [
-  {
-    "type": "paragraph",
-    "id": "7afef99309ece227",
-    "text": "Here we describe the purpose of the plugin and include a sample."
-  },
-  {
-    "type": "present",
-    "id": "81ae7b4bc20ecceb",
-    "text": "This is text in the new plugin. You can *double-click* to edit it too."
-  }
-]
+    {
+      "type": "paragraph",
+      "id": "7afef99309ece227",
+      "text": "This plugin locates peers of the origin site and reports size and most recent activity for each."
     },
-    "date": 1539541471000,
-    "certificate": "from mkplugin.sh"
-  }
-]
+    {
+      "type": "present",
+      "id": "81ae7b4bc20ecceb",
+      "text": "This is text in the new plugin. You can *double-click* to edit it too."
+    },
+    {
+      "type": "paragraph",
+      "id": "f8e0bfb810dd6ae0",
+      "text": "The default behavior is to show all sites with sitemaps and to add these sites to the neighborhood. The recent activity is reported as the sitemaps load."
+    },
+    {
+      "type": "paragraph",
+      "id": "619242dd6b10fcd3",
+      "text": "Markup is rendered as text within the plugin. There are not yet any recognized markup keywords."
+    }
+  ],
+  "journal": [
+    {
+      "type": "create",
+      "item": {
+        "title": "About Present Plugin",
+        "story": [
+          {
+            "type": "paragraph",
+            "id": "7afef99309ece227",
+            "text": "Here we describe the purpose of the plugin and include a sample."
+          },
+          {
+            "type": "present",
+            "id": "81ae7b4bc20ecceb",
+            "text": "This is text in the new plugin. You can *double-click* to edit it too."
+          }
+        ]
+      },
+      "date": 1539541471000,
+      "certificate": "from mkplugin.sh"
+    },
+    {
+      "type": "edit",
+      "id": "7afef99309ece227",
+      "item": {
+        "type": "paragraph",
+        "id": "7afef99309ece227",
+        "text": "This plugin locates peers of the origin site and reports size and most recent activity for each."
+      },
+      "date": 1573343244357
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "f8e0bfb810dd6ae0"
+      },
+      "id": "f8e0bfb810dd6ae0",
+      "type": "add",
+      "after": "81ae7b4bc20ecceb",
+      "date": 1573343249494
+    },
+    {
+      "type": "edit",
+      "id": "f8e0bfb810dd6ae0",
+      "item": {
+        "type": "paragraph",
+        "id": "f8e0bfb810dd6ae0",
+        "text": "The default behavior is to show all sites with sitemaps and to add these sites to the neighborhood. The recent activity is reported as the sitemaps load."
+      },
+      "date": 1573343393461
+    },
+    {
+      "type": "add",
+      "id": "619242dd6b10fcd3",
+      "item": {
+        "type": "paragraph",
+        "id": "619242dd6b10fcd3",
+        "text": "Markup is rendered as text within the plugin. There are not yet any recognized markup keywords."
+      },
+      "after": "f8e0bfb810dd6ae0",
+      "date": 1573343456539
+    }
+  ]
 }
