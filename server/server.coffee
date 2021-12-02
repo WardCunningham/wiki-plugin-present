@@ -28,6 +28,6 @@ startServer = (params) ->
         path = file.replace /status\/sitemap\.json/, 'pages'
         pages = fs.readdirSync(path).length
         {site, pages}
-      res.json {roll, files, argv }
+      res.json {roll, files}
 
 module.exports = {startServer}
