@@ -83,7 +83,7 @@ emit = ($item, item) ->
       error: trouble
 
   update()
-  $item.find('.caption').click -> update()
+  $item.find('.caption').on('click',() -> update())
 
 bind = ($item, item) ->
   $item.dblclick ->
