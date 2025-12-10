@@ -1,33 +1,76 @@
-# present plugin, server-side component
-# These handlers are launched with the wiki server. 
+// present plugin, server-side component
+// These handlers are launched with the wiki server.
 
-glob = require 'glob'
-fs = require 'fs'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 
-peers = (status) ->
-  pattern = status.split('/').reverse()
-  path = pattern[1].split('.')
-  path[0] = '+([^.])'
-  pattern[1] = path.join('.')
-  pattern.reverse().join('/')
+const startServer = params => {
+  const { app, argv } = params
 
-startServer = (params) ->
-  app = params.app
-  argv = params.argv
+  // where are going to look for peers
+  const data = path.join(argv.data, '..')
+  // base of peers
+  const peerRoot = path.parse(argv.data).base.split('.').splice(1).join('.')
 
-  # app.get '/plugin/present/:thing', (req, res) ->
-  #   thing = req.params.thing
-  #   res.json {thing}
+  const isPeer = entry => {
+    const entryRoot = path.parse(entry.name).base.split('.').splice(1).join('.')
+    if (peerRoot === entryRoot) {
+      return true
+    } else {
+      return false
+    }
+  }
 
-  app.get '/plugin/present/roll', (req, res) ->
-    # https://www.npmjs.com/package/glob
-    glob "#{peers argv.status}/sitemap.json", {}, (err, files) ->
-      return res.error(err) if err
-      roll = for file in files
-        site = file.split('/').reverse()[2]
-        path = file.replace /status\/sitemap\.json/, 'pages'
-        pages = fs.readdirSync(path).length
-        {site, pages}
-      res.json {roll, files}
+  const isWiki = entry => {
+    const sitemapPath = path.join(entry.path, entry.name, 'status', 'sitemap.json')
 
-module.exports = {startServer}
+    return new Promise(resolve => {
+      fs.access(sitemapPath, fs.constants.R_OK)
+        .then(() => {
+          resolve(true)
+        })
+        .catch(() => {
+          resolve(false)
+        })
+    })
+  }
+
+  const wikiPages = async entry => {
+    const pagesPath = path.join(entry.path, entry.name, 'pages')
+
+    return new Promise(resolve => {
+      fs.readdir(pagesPath)
+        .then(entries => {
+          resolve({ site: entry.name, pages: entries.length })
+        })
+        .catch(() => {
+          resolve({ site: entry.name, pages: 0 })
+        })
+    })
+  }
+
+  app.get('/plugin/present/roll', (req, res) => {
+    fs.readdir(data, { withFileTypes: true })
+      .then(entries => {
+        // only interested in directories, where they are a peer
+        return entries.filter(entry => {
+          if (entry.isDirectory() && isPeer(entry)) {
+            return true
+          } else {
+            return false
+          }
+        })
+      })
+      .then(async entries => {
+        // only interested if the entry is a wiki
+        const areWiki = await Promise.all(entries.map(isWiki))
+        return entries.filter((item, index) => areWiki[index])
+      })
+      .then(async entries => {
+        const roll = await Promise.all(entries.map(wikiPages))
+        res.json({ roll })
+      })
+  })
+}
+
+export { startServer }
