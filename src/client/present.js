@@ -33,75 +33,87 @@ const recent = sitemap => {
 }
 
 const emit = ($item, item) => {
-  $item.append(`
-    <div style="background-color:#eee;padding:15px;">
-      <center>
-        ${expand(item.text)}
-        <p class=caption>updating</p>
-      <table width=100%></table>
-    </div>
-  `)
+  if ($item.closest('.page').hasClass('remote')) {
+    $item.append(`
+      <div style="background-color:#eee;padding:15px;">
+        <center>
+          ${expand(item.text)}
+          <p class=caption>Presence is only available when viewed on a page's home wiki.</p>
+        <table width=100%></table>
+      </div>
+    `)
+  } else {
+    $item.append(`
+      <div style="background-color:#eee;padding:15px;">
+        <center>
+          ${expand(item.text)}
+          <p class=caption>updating</p>
+        <table width=100%></table>
+      </div>
+    `)
 
-  const tick = () => {
-    $item.find('.caption').text(`updated ${elapsed(Date.now() - $item.start)}`)
-  }
-  const render = data => {
-    const rows = []
-    const sufix = location.port in [80, '80', '', null] ? '' : `:${location.port}`
-    for (const row of data.roll) {
-      const sitemap = wiki.neighborhood['#{row.site}#{sufix}']?.sitemap
-      if (row.pages > 0) {
-        const name = row.site.split('.')[0]
-        const link = `
-          <img
-          class=remote
-          title=${row.site}${sufix}
-          src=//${row.site}${sufix}/favicon.png
-          data-site=${row.site}${sufix}
-          data-slug=welcome-visitors>`
-        rows.push(`
-          <tr><td align=right>
-            ${name} ${link}
-          <td data-site=${row.site}${sufix}>
-            ${row.pages} pages ${recent(sitemap)}`)
-        wiki.neighborhoodObject.registerNeighbor(row.site + sufix)
-      }
+    const tick = () => {
+      $item.find('.caption').text(`updated ${elapsed(Date.now() - $item.start)}`)
     }
-    $item.find('table').html(rows.join('\n'))
-    $item.find('.caption').text('just updated')
-
-    clearInterval($item.ticker)
-    $item.start = Date.now()
-    $item.ticker = setInterval(tick, 60000)
-
-    $('body').on('new-neighbor-done', (e, site) => {
-      const $td = $item.find(` td[data-site="${site}"]`)
-      if (!$td.length > 0) return
-      const sitemap = wiki.neighborhood[site].sitemap
-      $td.text(`${sitemap.length} pages ${recent(sitemap)}`)
-    })
-  }
-  const trouble = xhr => {
-    $item.find('p').html(xhr.responseJSON?.error || 'server error')
-  }
-
-  const update = () => {
-    fetch('/plugin/present/roll')
-      .then(response => {
-        if (!response.status) {
-          throw new Error(`HTTP error: ${response.status}`)
+    const render = data => {
+      const rows = []
+      const sufix = location.port in [80, '80', '', null] ? '' : `:${location.port}`
+      for (const row of data.roll) {
+        const sitemap = wiki.neighborhood['#{row.site}#{sufix}']?.sitemap
+        if (row.pages > 0) {
+          const name = row.site.split('.')[0]
+          const link = `
+            <img
+            class=remote
+            title=${row.site}${sufix}
+            src=//${row.site}${sufix}/favicon.png
+            data-site=${row.site}${sufix}
+            data-slug=welcome-visitors>`
+          rows.push(`
+            <tr><td align=right>
+              ${name} ${link}
+            <td data-site=${row.site}${sufix}>
+              ${row.pages} pages ${recent(sitemap)}`)
+          wiki.neighborhoodObject.registerNeighbor(row.site + sufix)
         }
-        return response.json()
+      }
+      $item.find('table').html(rows.join('\n'))
+      $item.find('.caption').text('just updated')
+
+      clearInterval($item.ticker)
+      $item.start = Date.now()
+      $item.ticker = setInterval(tick, 60000)
+
+      $('body').on('new-neighbor-done', (e, site) => {
+        const $td = $item.find(` td[data-site="${site}"]`)
+        if (!$td.length > 0) return
+        const sitemap = wiki.neighborhood[site].sitemap
+        $td.text(`${sitemap.length} pages ${recent(sitemap)}`)
       })
-      .then(data => {
-        render(data)
-      })
-      .catch(error => {
-        trouble(error)
-      })
+
+    }
+    const trouble = xhr => {
+      $item.find('p').html(xhr.responseJSON?.error || 'server error')
+    }
+
+    const update = () => {
+      fetch('/plugin/present/roll')
+        .then(response => {
+          if (!response.status) {
+            throw new Error(`HTTP error: ${response.status}`)
+          }
+          return response.json()
+        })
+        .then(data => {
+          render(data)
+        })
+        .catch(error => {
+          trouble(error)
+        })
+    }
+    update()
+    $item.find('.caption').on('click', () => update())
   }
-  update()
-  $item.find('.caption').on('click', () => update())
 }
 const bind = ($item, item) => {
   $item.dblclick(() => {
