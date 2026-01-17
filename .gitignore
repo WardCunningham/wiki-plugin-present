@@ -1,5 +1,6 @@
-/*/*.js
-/*/*.map
+coverage
 node_modules
 npm-debug.log
-status
+client/present.js
+client/present.js.map
+meta-client.json
