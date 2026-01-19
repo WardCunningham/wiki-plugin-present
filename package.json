@@ -32,7 +32,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wardcunningham/wiki-plugin-present.git"
+    "url": "git+https://github.com/wardcunningham/wiki-plugin-present.git"
   },
   "bugs": {
     "url": "https://github.com/wardcunningham/wiki-plugin-present/issues"
