@@ -57,7 +57,7 @@ const emit = ($item, item) => {
     }
     const render = data => {
       const rows = []
-      const sufix = location.port in [80, '80', '', null] ? '' : `:${location.port}`
+      const sufix =  [80, '80', '', null].includes(location.port) ? '' : `:${location.port}`
       for (const row of data.roll) {
         const sitemap = wiki.neighborhood['#{row.site}#{sufix}']?.sitemap
         if (row.pages > 0) {
